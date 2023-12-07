@@ -125,6 +125,7 @@ int main() {
             cin >> nomor;
             cin.ignore();
             cout << "Masukkan Nama      : ";
+            getline(cin, nama);
             inputData(nomor, nama);
             break;
         case 2:
