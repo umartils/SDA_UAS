@@ -2,8 +2,10 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
 struct Kontak {
     string nomor;
@@ -76,9 +78,28 @@ void binarySearch(const vector<Kontak>& kontakList, const string& query) {
     }
 }
 
+void waktuBin(const vector<Kontak>& kontakList, const string& query){
+    auto start_time = chrono::high_resolution_clock::now();
+    binarySearch(kontakList, query);
+    auto end_time = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+
+    cout << "\nWaktu eksekusi binary search : " << duration.count() << " mikrodetik" << endl;
+}
+void waktuSeq(const vector<Kontak>& kontakList, const string& query){
+    auto start_time = chrono::high_resolution_clock::now();
+    sequentialSearch(kontakList, query);
+    auto end_time = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
+
+    cout << "\nWaktu eksekusi binary search : " << duration.count() << " mikrodetik" << endl;
+}
+
+/// @brief 
+/// @return 
 int main() {
     vector<Kontak> kontakList;
-    ifstream inputFile("db_kontakan.txt");
+    fstream inputFile("db_kontakan.txt");
 
     // Membaca data kontak dari file eksternal saat program dimulai
     if (inputFile.is_open()) {
@@ -91,7 +112,7 @@ int main() {
         }
         inputFile.close();
     }
-    ofstream outputFile("db_kontakan.txt");
+    //ofstream outputFile("db_kontakan.txt");
 
     int pilihan;
     string query;
@@ -114,21 +135,21 @@ int main() {
                 system("cls");
                 cout << "Masukkan nama atau nomor telepon yang dicari: ";
                 cin >> query;
-                sequentialSearch(kontakList, query);
+                waktuSeq(kontakList, query);
                 break;
             case 3:
                 system("cls");
                 cout << "Masukkan nomor telepon yang dicari: ";
                 cin >> query;
-                binarySearch(kontakList, query);
+                waktuBin(kontakList, query);
                 break;
             case 4:
                 system("cls");
                 // Menyimpan data kontak ke file sebelum keluar
-                for (const Kontak& kontak : kontakList) {
+                /*for (const Kontak& kontak : kontakList) {
                     outputFile << kontak.nomor << "\t" << kontak.nama << "\n";
                 }
-                outputFile.close();
+                outputFile.close();*/
                 cout << "Program selesai.\n";
                 break;
             default:
