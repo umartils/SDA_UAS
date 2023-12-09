@@ -14,25 +14,38 @@ struct Kontak {
 
 // Fungsi untuk menginputkan data kontak dan menyimpannya dalam file
 void inputData(vector<Kontak>& kontakList) {
+    string nomor, nama;
+    bool found;
     Kontak kontak;
     cout << "Masukkan nomor telepon: ";
-    cin >> kontak.nomor;
+    cin >> nomor;
     cout << "Masukkan nama: ";
     cin.ignore(); // Membersihkan newline di buffer
-    getline(cin, kontak.nama);
+    getline(cin, nama);
 
     // Menyimpan data kontak dalam vektor
-    kontakList.push_back(kontak);
-
-    // Menyimpan data kontak dalam file eksternal
-    ofstream file("db_kontakan.txt", ios::app);
-    if (file.is_open()) {
-        file << kontak.nomor << "\t" << kontak.nama << "\n";
-        file.close();
-    } else {
-        cerr << "Gagal membuka file db_kontak.txt\n";
+    
+    for (const Kontak& kontak : kontakList) {
+        if (kontak.nama == nama || kontak.nomor == nomor) {
+            cout << "Nama atau nomor sudah ada\n";
+            found = true;
+            break;
+        }
+    }
+    if (!found){
+        kontak.nomor = nomor;
+        kontak.nama = nama;
+        kontakList.push_back(kontak);
+        ofstream file("db_kontakan.txt", ios::app);
+        if (file.is_open()) {
+            file << kontak.nomor << "\t" << kontak.nama << "\n";
+            file.close();
+        } else {
+            cerr << "Gagal membuka file db_kontak.txt\n";
+        }
     }
 }
+    // Menyimpan data kontak dalam file eksternal
 
 // Fungsi untuk melakukan sequential search berdasarkan nama atau nomor telepon
 void sequentialSearch(const vector<Kontak>& kontakList, const string& query) {
@@ -77,6 +90,7 @@ void binarySearch(const vector<Kontak>& kontakList, const string& query) {
         cout << "Data dengan nomor telepon '" << query << "' tidak ditemukan.\n";
     }
 }
+
 
 void waktuBin(const vector<Kontak>& kontakList, const string& query){
     auto start_time = chrono::high_resolution_clock::now();
