@@ -90,6 +90,31 @@ void binarySearch(const vector<Kontak>& kontakList, const string& query) {
         cout << "Data dengan nomor telepon '" << query << "' tidak ditemukan.\n";
     }
 }
+void printData() {
+    fstream database;
+    database.open("db_kontakan.txt");
+    
+    if (!database.is_open()) {
+        cout << "Gagal membuka file database.\n";
+        return;
+    }
+
+    int i = 1;
+    string listdata;
+    
+    cout << "========================================\n";
+    cout << " No \t" << "Nomor \t\t" << "Nama \n";
+    cout << "========================================\n";
+
+    while (getline(database, listdata)) {
+        cout << " "<< i << "\t" << listdata << "\n";
+        i++;
+    }
+
+    cout << "========================================\n";
+    
+    database.close(); // Menutup database setelah penggunaan
+}
 
 
 void waktuBin(const vector<Kontak>& kontakList, const string& query){
@@ -136,7 +161,8 @@ int main() {
         cout << "1. Input Data Kontak\n";
         cout << "2. Sequential Search\n";
         cout << "3. Binary Search\n";
-        cout << "4. Keluar\n";
+        cout << "4. Print Data\n";
+        cout << "5. Keluar\n";
         cout << "Pilih (1-4): ";
         cin >> pilihan;
 
@@ -159,6 +185,10 @@ int main() {
                 break;
             case 4:
                 system("cls");
+                printData();
+                break;
+            case 5:
+                system("cls");
                 // Menyimpan data kontak ke file sebelum keluar
                 /*for (const Kontak& kontak : kontakList) {
                     outputFile << kontak.nomor << "\t" << kontak.nama << "\n";
@@ -170,7 +200,7 @@ int main() {
                 cout << "Pilihan tidak valid.\n";
                 break;
         }
-    } while (pilihan != 4);
+    } while (pilihan != 5);
 
     return 0;
 }
