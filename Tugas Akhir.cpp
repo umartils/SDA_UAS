@@ -295,6 +295,7 @@ int main()
         {
         case 1:
             system("cls");
+            cout << "Sequential Search\n";
             cout << "1. Cari menggunakan nama\n2. Cari menggunakan nomor" ;
             cout << "\nPilih (1/2) : ";
             cin >> pil2 ;
@@ -313,6 +314,7 @@ int main()
             break;
         case 2:
             system("cls");
+            cout << "Binary Search\n";
             cout << "1. Cari Menggunakan Nama\n2. Cari Menggunakan Nomor\n";
             cout << "Pilih (1/2) : ";
             cin >> pil1;
