@@ -76,8 +76,7 @@ void binarySearch(const vector<Kontak> &sortedList, const string &query)
         int mid = low + (high - low) / 2;
 
         if (sortedList[mid].nama == query)
-        {
-            cout << "Data ditemukan:\n";
+        {        cout << "Data ditemukan:\n";
             cout << "Nomor Telepon: " << sortedList[mid].nomor << "\n";
             cout << "Nama: " << sortedList[mid].nama << "\n";
             found = true;
@@ -89,7 +88,8 @@ void binarySearch(const vector<Kontak> &sortedList, const string &query)
         }
         else
         {
-            high = mid - 1;
+       
+    high = mid - 1;
         }
     }
 
@@ -125,7 +125,7 @@ void binarySearch1(const vector<Kontak> &sortedListNomor, const string &query)
         {
             high = mid - 1;
         }
-    }
+     }
 
     if (!found)
     {
@@ -140,12 +140,19 @@ vector<Kontak> sortListByName(const vector<Kontak> &kontakList)
     sort(sortedList.begin(), sortedList.end(), [](const Kontak &a, const Kontak &b)
          { return a.nama < b.nama; });
 
-    ofstream outputFile("sorted_contacts.txt", ios::app); // Membuka file untuk penulisan
+    fstream outputFile; // Membuka file untuk penulisan
+    outputFile.open("sorted_contacts.txt");
 
-    for (const Kontak &kontak : sortedList) {
-        outputFile << "Nomor Telepon: " << kontak.nomor << "\t";
-        outputFile << "Nama: " << kontak.nama << "\n";
+    if (!outputFile.is_open())
+    {
+        ofstream isi("sorted_contacts.txt", ios::app);
+        for (const Kontak &kontak : sortedList) {
+        isi << "Nomor Telepon: " << kontak.nomor << "\t";
+        isi << "Nama: " << kontak.nama << "\n";
     }
+        isi.close();
+    }
+    
 
     outputFile.close(); // Menutup file
 
@@ -157,11 +164,17 @@ vector<Kontak> sortListByNo(const vector<Kontak> &kontakList)
     sort(sortedList.begin(), sortedList.end(), [](const Kontak &a, const Kontak &b)
          { return a.nomor < b.nomor; });
 
-    ofstream outputFile("sorted_contactsNo.txt", ios::app); // Membuka file untuk penulisan
+    fstream outputFile;
+    outputFile.open("sorted_contactsNo.txt");
 
-    for (const Kontak &kontak : sortedList) {
-        outputFile << "Nomor Telepon: " << kontak.nomor << "\t";
-        outputFile << "Nama: " << kontak.nama << "\n";
+    if (!outputFile.is_open())
+    {
+        ofstream isi("sorted_contactsNo.txt", ios::app);
+        for (const Kontak &kontak : sortedList) {
+        isi << "Nomor Telepon: " << kontak.nomor << "\t";
+        isi << "Nama: " << kontak.nama << "\n";
+    }
+        isi.close();
     }
 
     outputFile.close(); // Menutup file
