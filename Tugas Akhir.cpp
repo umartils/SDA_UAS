@@ -143,9 +143,8 @@ vector<Kontak> sortListByName(const vector<Kontak> &kontakList)
     ofstream outputFile("sorted_contacts.txt", ios::app); // Membuka file untuk penulisan
 
     for (const Kontak &kontak : sortedList) {
-        outputFile << "Nomor Telepon: " << kontak.nomor << "\n";
+        outputFile << "Nomor Telepon: " << kontak.nomor << "\t";
         outputFile << "Nama: " << kontak.nama << "\n";
-        outputFile << "====================\n";
     }
 
     outputFile.close(); // Menutup file
@@ -161,9 +160,8 @@ vector<Kontak> sortListByNo(const vector<Kontak> &kontakList)
     ofstream outputFile("sorted_contactsNo.txt", ios::app); // Membuka file untuk penulisan
 
     for (const Kontak &kontak : sortedList) {
-        outputFile << "Nomor Telepon: " << kontak.nomor << "\n";
+        outputFile << "Nomor Telepon: " << kontak.nomor << "\t";
         outputFile << "Nama: " << kontak.nama << "\n";
-        outputFile << "====================\n";
     }
 
     outputFile.close(); // Menutup file
